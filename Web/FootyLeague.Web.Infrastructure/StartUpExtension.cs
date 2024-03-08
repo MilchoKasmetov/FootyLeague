@@ -70,6 +70,13 @@ namespace FootyLeague.Web.Infrastructure
             return services;
         }
 
+        public static IServiceCollection ConfigureSwagger(this IServiceCollection services)
+        {
+            services.AddSwaggerGen();
+
+            return services;
+        }
+
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.ConfigureMSSQLDB(configuration);
@@ -87,6 +94,8 @@ namespace FootyLeague.Web.Infrastructure
 
             // Application services
             services.ConfigureApplicationServices(configuration);
+
+            services.ConfigureSwagger();
 
         }
     }
