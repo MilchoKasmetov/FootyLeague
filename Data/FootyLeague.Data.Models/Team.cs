@@ -19,7 +19,12 @@ namespace FootyLeague.Data.Models
 
         [Required]
         [StringLength(100)]
+        [MinLength(3)]
         public string Name { get; set; }
+
+        [Required]
+        [Range(0, int.MaxValue)]
+        public int Points { get; set; }
 
         [Required]
         public ICollection<Match> Matches { get; set; }
