@@ -13,9 +13,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.CookiePolicy" Version="2.2.8" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\FootyLeague.Data.Common\FootyLeague.Data.Common.csproj" />
+    <ProjectReference Include="..\..\Data\FootyLeague.Data\FootyLeague.Data.csproj" />
+    <ProjectReference Include="..\..\Services\FootyLeague.Services.Data\FootyLeague.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Services\FootyLeague.Services.Messaging\FootyLeague.Services.Messaging.csproj" />
   </ItemGroup>
 
 </Project>
