@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Reflection;
+    using System.Reflection.Emit;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -23,6 +24,10 @@
             : base(options)
         {
         }
+
+        public DbSet<Team> Teams { get; set; }
+
+        public DbSet<Match> Matches { get; set; }
 
         public DbSet<Setting> Settings { get; set; }
 
@@ -72,6 +77,18 @@
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            builder.Entity<Match>()
+                .HasOne(m => m.HomeTeam)
+                .WithMany(t => t.Matches)
+                .HasForeignKey(m => m.HomeTeamId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Match>()
+                .HasOne(m => m.AwayTeam)
+                .WithMany(t => t.Matches)
+                .HasForeignKey(m => m.AwayTeamId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)
