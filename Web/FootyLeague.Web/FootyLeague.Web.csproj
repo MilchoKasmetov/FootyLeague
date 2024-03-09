@@ -44,4 +44,8 @@
     <ProjectReference Include="..\FootyLeague.Web.Infrastructure\FootyLeague.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\FootyLeague.Web.ViewModels\FootyLeague.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Administration\Controllers\" />
+  </ItemGroup>
 </Project>
