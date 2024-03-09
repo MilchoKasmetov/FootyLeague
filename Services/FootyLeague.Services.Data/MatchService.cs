@@ -14,6 +14,11 @@ namespace FootyLeague.Services.Data
     {
         private readonly IDeletableEntityRepository<Match> matchRepository;
 
+        public MatchService(IDeletableEntityRepository<Match> matchRepository)
+        {
+            this.matchRepository = matchRepository;
+        }
+
         public async Task<IEnumerable<T>> GetAllMatchesAsync<T>()
         {
             IQueryable<Match> query = this.matchRepository.All().OrderBy(x => x.Date);

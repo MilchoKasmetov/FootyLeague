@@ -27,6 +27,8 @@
                           {
                               new RolesSeeder(),
                               new SettingsSeeder(),
+                              new TeamSeeder(),
+                              new MatchSeeder(),
                           };
 
             foreach (var seeder in seeders)

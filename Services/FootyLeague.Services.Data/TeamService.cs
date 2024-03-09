@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+
     using FootyLeague.Data.Common.Repositories;
     using FootyLeague.Data.Models;
     using FootyLeague.Services.Data.Contracts;
@@ -13,6 +14,11 @@
     public class TeamService : ITeamService
     {
         private readonly IDeletableEntityRepository<Team> teamRepository;
+
+        public TeamService(IDeletableEntityRepository<Team> teamRepository)
+        {
+                this.teamRepository = teamRepository;
+        }
 
         public async Task<IEnumerable<T>> GetAllTeamsAsync<T>()
         {

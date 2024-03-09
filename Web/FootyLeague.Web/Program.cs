@@ -13,6 +13,7 @@
     using FootyLeague.Services.Messaging;
     using FootyLeague.Web.Infrastructure;
     using FootyLeague.Web.ViewModels;
+    using FootyLeague.Web.ViewModels.Team;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -43,6 +44,8 @@
                 dbContext.Database.Migrate();
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
+
+            AutoMapperConfig.RegisterMappings(typeof(TeamViewModel).GetTypeInfo().Assembly);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

@@ -25,7 +25,7 @@
         [MinLength(3)]
         public string Name { get; set; }
 
-        public int Points => this.CalculatePoints();
+        public int Points { get; set; }
 
         public ICollection<Match> Matches { get; set; }
 
@@ -59,9 +59,9 @@
             return false;
         }
 
-        private int CalculatePoints()
+        public void CalculatePoints()
         {
-            return (this.Wins * 3) + (this.Draws * 1);
+            this.Points = (this.Wins * 3) + (this.Draws * 1);
         }
     }
 }
