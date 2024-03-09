@@ -12,6 +12,7 @@
     using FootyLeague.Data.Models;
     using FootyLeague.Data.Repositories;
     using FootyLeague.Services.Data;
+    using FootyLeague.Services.Data.Contracts;
     using FootyLeague.Services.Messaging;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
@@ -38,6 +39,8 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<ITeamService, TeamService>();
+            services.AddTransient<IMatchService, MatchService>();
 
             return services;
         }
