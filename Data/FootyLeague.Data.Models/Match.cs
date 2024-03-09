@@ -12,15 +12,6 @@
     public class Match : BaseDeletableModel<int>
     {
         [Required]
-        public int MatchId { get; set; }
-
-        [Required]
-        public int HomeTeamId { get; set; }
-
-        [Required]
-        public int AwayTeamId { get; set; }
-
-        [Required]
         public int HomeTeamScore { get; set; }
 
         [Required]
@@ -30,7 +21,13 @@
         public DateTime Date { get; set; }
 
         [Required]
+        public int HomeTeamId { get; set; }
+
+        [Required]
         public Team HomeTeam { get; set; }
+
+        [Required]
+        public int AwayTeamId { get; set; }
 
         [Required]
         public Team AwayTeam { get; set; }

@@ -89,6 +89,11 @@
                 .WithMany(t => t.AwayMatches)
                 .HasForeignKey(m => m.AwayTeamId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Team>()
+                .Property(t => t.Points)
+                .HasComputedColumnSql("([Wins] * 3) + [Draws]")
+                .IsRequired();
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)

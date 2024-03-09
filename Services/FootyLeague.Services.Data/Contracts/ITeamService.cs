@@ -11,7 +11,7 @@
     {
         Task<IEnumerable<T>> GetAllTeamsAsync<T>();
 
-        Task UpdateTeamScore();
+        Task UpdateAllTeamsStats();
 
         Task CreateTeamAsync(CreateTeamInputModel model);
     }

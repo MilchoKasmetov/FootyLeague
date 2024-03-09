@@ -177,9 +177,6 @@ namespace FootyLeague.Data.Migrations
                     b.Property<bool>("IsPlayed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("MatchId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
@@ -246,8 +243,14 @@ namespace FootyLeague.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Draws")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Losses")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
@@ -258,6 +261,11 @@ namespace FootyLeague.Data.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("Points")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("int")
+                        .HasComputedColumnSql("([Wins] * 3) + [Draws]");
+
+                    b.Property<int>("Wins")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

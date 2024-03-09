@@ -11,5 +11,6 @@
 
     public class CreateTeamInputModel : BaseTeamInputModel
     {
+
     }
 }

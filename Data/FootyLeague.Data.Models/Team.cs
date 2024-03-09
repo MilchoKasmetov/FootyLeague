@@ -33,35 +33,11 @@
 
         public ICollection<Match> AwayMatches { get; set; }
 
-        public int Wins => this.Matches.Count(match => IsTeamWinner(match, this));
+        public int Wins { get; set; }
 
-        public int Draws => this.Matches.Count(match => IsDraw(match));
+        public int Draws { get; set; }
 
-        public int Losses => this.Matches.Count(match => !IsTeamWinner(match, this) && !IsDraw(match));
+        public int Losses { get; set; }
 
-        private static bool IsDraw(Match match)
-        {
-            return match.HomeTeamScore == match.AwayTeamScore;
-        }
-
-        private static bool IsTeamWinner(Match match, Team team)
-        {
-            if (match.HomeTeamId == team.Id && match.HomeTeamScore > match.AwayTeamScore)
-            {
-                return true;
-            }
-
-            if (match.AwayTeamId == team.Id && match.AwayTeamScore > match.HomeTeamScore)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public void CalculatePoints()
-        {
-            this.Points = (this.Wins * 3) + (this.Draws * 1);
-        }
     }
 }

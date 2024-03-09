@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FootyLeague.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240309113649_InitialModelCreationChange")]
-    partial class InitialModelCreationChange
+    [Migration("20240309195251_InitialModelCreation")]
+    partial class InitialModelCreation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -180,9 +180,6 @@ namespace FootyLeague.Data.Migrations
                     b.Property<bool>("IsPlayed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("MatchId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
@@ -249,8 +246,14 @@ namespace FootyLeague.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Draws")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Losses")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
@@ -259,6 +262,14 @@ namespace FootyLeague.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Points")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("int")
+                        .HasComputedColumnSql("([Wins] * 3) + [Draws]");
+
+                    b.Property<int>("Wins")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

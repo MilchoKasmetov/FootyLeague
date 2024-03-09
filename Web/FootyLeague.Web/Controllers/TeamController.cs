@@ -34,7 +34,7 @@
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> Post(CreateTeamInputModel model)
+        public async Task<IActionResult> Create(CreateTeamInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -42,6 +42,17 @@
             }
 
             await this._teamService.CreateTeamAsync(model);
+
+            return Ok();
+        }
+
+        [HttpPost("update_results")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> UpdateResults()
+        {
+            await this._teamService.UpdateAllTeamsStats();
 
             return Ok();
         }

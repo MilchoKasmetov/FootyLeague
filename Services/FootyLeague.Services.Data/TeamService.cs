@@ -16,10 +16,12 @@
     public class TeamService : ITeamService
     {
         private readonly IDeletableEntityRepository<Team> teamRepository;
+        private readonly IDeletableEntityRepository<Match> matchRepository;
 
-        public TeamService(IDeletableEntityRepository<Team> teamRepository)
+        public TeamService(IDeletableEntityRepository<Team> teamRepository,IDeletableEntityRepository<Match> matchRepository)
         {
-                this.teamRepository = teamRepository;
+            this.teamRepository = teamRepository;
+            this.matchRepository = matchRepository;
         }
 
         public async Task<IEnumerable<T>> GetAllTeamsAsync<T>()
@@ -30,13 +32,20 @@
             return query.To<T>().ToList();
         }
 
-        public async Task UpdateTeamScore()
+        public async Task UpdateAllTeamsStats()
         {
+            var matches = await this.matchRepository.All().ToListAsync();
             var teams = await this.teamRepository.All().ToListAsync();
 
-            foreach (var team in teams)
+            foreach (var match in matches)
             {
-                team.CalculatePoints();
+                var homeTeam = teams.FirstOrDefault(t => t.Id == match.HomeTeamId);
+                var awayTeam = teams.FirstOrDefault(t => t.Id == match.AwayTeamId);
+
+                if (homeTeam != null && awayTeam != null)
+                {
+                    this.UpdateTeamStats(homeTeam, awayTeam, match);
+                }
             }
 
             await this.teamRepository.SaveChangesAsync();
@@ -55,6 +64,35 @@
             {
                 await this.teamRepository.AddAsync(team);
                 await this.teamRepository.SaveChangesAsync();
+            }
+        }
+
+        private void UpdateTeamStats(Team homeTeam, Team awayTeam, Match match)
+        {
+            homeTeam.Matches.Add(match);
+            homeTeam.HomeMatches.Add(match);
+            awayTeam.Matches.Add(match);
+            awayTeam.AwayMatches.Add(match);
+
+            if (!match.IsPlayed)
+            {
+                if (match.HomeTeamScore > match.AwayTeamScore)
+                {
+                    homeTeam.Wins++;
+                    awayTeam.Losses++;
+                }
+                else if (match.HomeTeamScore == match.AwayTeamScore)
+                {
+                    homeTeam.Draws++;
+                    awayTeam.Draws++;
+                }
+                else
+                {
+                    homeTeam.Losses++;
+                    awayTeam.Wins++;
+                }
+
+                match.IsPlayed = true;
             }
         }
     }

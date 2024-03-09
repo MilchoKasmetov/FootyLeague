@@ -1,4 +1,4 @@
-﻿namespace FootyLeague.Data
+﻿namespace FootyLeague.Data.Seeding
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +8,6 @@
     using System.Threading.Tasks;
 
     using FootyLeague.Data.Models;
-    using FootyLeague.Data.Seeding;
 
     public class MatchSeeder : ISeeder
     {
@@ -32,7 +31,7 @@
                         Date = DateTime.Now,
                         IsPlayed = false,
                         HomeTeamScore = i,
-                        AwayTeamScore = j + 1
+                        AwayTeamScore = j + 1,
                     };
                     await dbContext.Matches.AddAsync(match);
                 }
