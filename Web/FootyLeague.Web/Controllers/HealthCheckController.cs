@@ -16,18 +16,18 @@ namespace FootyLeague.Web.Controllers
 
         public HealthCheckController(ILogger<HealthCheckController> logger, HealthCheckService service)
         {
-            _logger = logger;
-            _service = service;
+            this._logger = logger;
+            this._service = service;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var report = await _service.CheckHealthAsync();
+            var report = await this._service.CheckHealthAsync();
 
-            _logger.LogInformation($"Get Health Information: {report}");
+            this._logger.LogInformation($"Get Health Information: {report}");
 
-            return report.Status == HealthStatus.Healthy ? Ok(report) : StatusCode((int)HttpStatusCode.ServiceUnavailable, report);
+            return report.Status == HealthStatus.Healthy ? this.Ok(report) : this.StatusCode((int)HttpStatusCode.ServiceUnavailable, report);
         }
 
     }
