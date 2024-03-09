@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\FootyLeague.Data.Common\FootyLeague.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\FootyLeague.Data.Models\FootyLeague.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\FootyLeague.Web.ViewModels\FootyLeague.Web.ViewModels.csproj" />
     <ProjectReference Include="..\FootyLeague.Services.Mapping\FootyLeague.Services.Mapping.csproj" />
   </ItemGroup>
 

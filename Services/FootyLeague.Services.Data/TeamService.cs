@@ -10,6 +10,8 @@
     using FootyLeague.Data.Models;
     using FootyLeague.Services.Data.Contracts;
     using FootyLeague.Services.Mapping;
+    using FootyLeague.Web.ViewModels.Team;
+    using Microsoft.EntityFrameworkCore;
 
     public class TeamService : ITeamService
     {
@@ -26,6 +28,34 @@
                this.teamRepository.All().OrderBy(x => x.Points);
 
             return query.To<T>().ToList();
+        }
+
+        public async Task UpdateTeamScore()
+        {
+            var teams = await this.teamRepository.All().ToListAsync();
+
+            foreach (var team in teams)
+            {
+                team.CalculatePoints();
+            }
+
+            await this.teamRepository.SaveChangesAsync();
+        }
+
+        public async Task CreateTeamAsync(CreateTeamInputModel model)
+        {
+            var team = new Team()
+            {
+                Name = model.Name,
+            };
+
+            var teams = await this.teamRepository.All().ToListAsync();
+
+            if (!teams.Any(x => x.Name == model.Name) && model.Name != null)
+            {
+                await this.teamRepository.AddAsync(team);
+                await this.teamRepository.SaveChangesAsync();
+            }
         }
     }
 }

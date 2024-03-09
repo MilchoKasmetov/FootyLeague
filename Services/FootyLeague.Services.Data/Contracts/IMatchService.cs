@@ -9,5 +9,6 @@
     public interface IMatchService
     {
         Task<IEnumerable<T>> GetAllMatchesAsync<T>();
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace FootyLeague.Services.Data.Contracts
 {
+    using FootyLeague.Web.ViewModels.Team;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -9,5 +10,9 @@
     public interface ITeamService
     {
         Task<IEnumerable<T>> GetAllTeamsAsync<T>();
+
+        Task UpdateTeamScore();
+
+        Task CreateTeamAsync(CreateTeamInputModel model);
     }
 }
