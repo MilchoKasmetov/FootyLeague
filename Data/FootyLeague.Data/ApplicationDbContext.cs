@@ -79,14 +79,14 @@
             }
 
             builder.Entity<Match>()
-                .HasOne(m => m.HomeTeam)
-                .WithMany(t => t.Matches)
-                .HasForeignKey(m => m.HomeTeamId)
-                .OnDelete(DeleteBehavior.Restrict);
+               .HasOne(m => m.HomeTeam)
+               .WithMany(t => t.HomeMatches)
+               .HasForeignKey(m => m.HomeTeamId)
+               .OnDelete(DeleteBehavior.Restrict); // Or whatever behavior you need
 
             builder.Entity<Match>()
                 .HasOne(m => m.AwayTeam)
-                .WithMany(t => t.Matches)
+                .WithMany(t => t.AwayMatches)
                 .HasForeignKey(m => m.AwayTeamId)
                 .OnDelete(DeleteBehavior.Restrict);
         }

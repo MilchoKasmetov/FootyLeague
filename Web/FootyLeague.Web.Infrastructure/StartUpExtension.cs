@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using FootyLeague.Data;
-using FootyLeague.Data.Common;
-using FootyLeague.Data.Common.Repositories;
-using FootyLeague.Data.Models;
-using FootyLeague.Data.Repositories;
-using FootyLeague.Services.Data;
-using FootyLeague.Services.Messaging;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-
-
-namespace FootyLeague.Web.Infrastructure
+﻿namespace FootyLeague.Web.Infrastructure
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using FootyLeague.Data;
+    using FootyLeague.Data.Common;
+    using FootyLeague.Data.Common.Repositories;
+    using FootyLeague.Data.Models;
+    using FootyLeague.Data.Repositories;
+    using FootyLeague.Services.Data;
+    using FootyLeague.Services.Messaging;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class StartUpExtension
     {
         public static IServiceCollection ConfigureDataRepositories(this IServiceCollection services)
