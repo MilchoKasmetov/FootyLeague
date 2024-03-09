@@ -21,6 +21,8 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using Serilog;
 
     public static class StartUpExtension
     {
@@ -79,6 +81,20 @@
             return services;
         }
 
+        public static WebApplicationBuilder ConfigureSeriLog(this WebApplicationBuilder builder)
+        {
+            var logger = new LoggerConfiguration()
+                    .ReadFrom.Configuration(builder.Configuration)
+                    .Enrich.FromLogContext()
+                    .CreateLogger();
+            builder.Logging.ClearProviders();
+            builder.Logging.AddSerilog(logger);
+
+            Log.Logger = logger;
+
+            return builder;
+        }
+
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.ConfigureMSSQLDB(configuration);
@@ -98,6 +114,9 @@
             services.ConfigureApplicationServices(configuration);
 
             services.ConfigureSwagger();
+
+            services.AddHealthChecks()
+                    .AddSqlServer(configuration["ConnectionStrings:DefaultConnection"]);
 
         }
     }

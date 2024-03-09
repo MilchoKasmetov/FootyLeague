@@ -21,6 +21,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Serilog;
 
     public class Program
     {
@@ -28,11 +29,15 @@
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.ConfigureSeriLog();
+
             builder.Services.ConfigureServices(builder.Configuration);
 
             var app = builder.Build();
             Configure(app);
             app.Run();
+
+            Log.CloseAndFlush();
         }
 
         private static void Configure(WebApplication app)
