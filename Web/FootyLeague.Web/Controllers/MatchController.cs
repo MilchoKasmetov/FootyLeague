@@ -29,7 +29,7 @@ namespace FootyLeague.Web.Controllers
         {
             var matches = await this._matchService.GetAllMatchesAsync<MatchViewModel>();
 
-            return matches.Any() ? this.Ok(matches) : NotFound();
+            return matches.Any() ? this.Ok(matches) : this.NotFound();
         }
 
         [HttpPost("create")]
@@ -46,8 +46,31 @@ namespace FootyLeague.Web.Controllers
             await this._matchService.CreateMatchAsync(model);
             await this._teamService.UpdateAllTeamsStats();
 
-            return Ok();
+            return this.Ok();
         }
 
+        [HttpDelete("{id}")]
+        [Produces("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this._matchService.Delete(id);
+
+            return this.Ok();
+        }
+
+        [HttpPost("{id}")]
+        [Produces("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> Restore(int id)
+        {
+            await this._matchService.Restore(id);
+
+            return this.Ok();
+        }
     }
 }
