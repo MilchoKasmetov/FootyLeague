@@ -95,5 +95,26 @@
                 match.IsPlayed = true;
             }
         }
+
+        public async Task<T> GetTeamAsync<T>(int id)
+        {
+            IQueryable<Team> query = this.teamRepository.All().Where(x => x.Id == id);
+
+            return await query.To<T>().FirstOrDefaultAsync();
+        }
+
+        public async Task Delete(int id)
+        {
+            var team = await this.teamRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            this.teamRepository.Delete(team);
+            await this.teamRepository.SaveChangesAsync();
+        }
+
+        public async Task Restore(int id)
+        {
+            var team = await this.teamRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == id);
+            this.teamRepository.Undelete(team);
+            await this.teamRepository.SaveChangesAsync();
+        }
     }
 }

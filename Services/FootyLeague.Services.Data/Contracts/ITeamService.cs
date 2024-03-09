@@ -14,5 +14,11 @@
         Task UpdateAllTeamsStats();
 
         Task CreateTeamAsync(CreateTeamInputModel model);
+
+        Task<T> GetTeamAsync<T>(int id);
+
+        Task Delete(int id);
+
+        Task Restore(int id);
     }
 }

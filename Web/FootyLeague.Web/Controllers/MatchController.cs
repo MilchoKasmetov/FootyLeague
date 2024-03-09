@@ -48,5 +48,6 @@ namespace FootyLeague.Web.Controllers
 
             return Ok();
         }
+
     }
 }

@@ -60,5 +60,26 @@ namespace FootyLeague.Services.Data
                 await this.matchRepository.SaveChangesAsync();
             }
         }
+
+        public async Task<T> GetMatchAsync<T>(int id)
+        {
+            IQueryable<Match> query = this.matchRepository.All().Where(x => x.Id == id);
+
+            return await query.To<T>().FirstOrDefaultAsync();
+        }
+
+        public async Task Delete(int id)
+        {
+            var match = await this.matchRepository.All().FirstOrDefaultAsync(x => x.Id == id);
+            this.matchRepository.Delete(match);
+            await this.matchRepository.SaveChangesAsync();
+        }
+
+        public async Task Restore(int id)
+        {
+            var match = await this.matchRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == id);
+            this.matchRepository.Undelete(match);
+            await this.matchRepository.SaveChangesAsync();
+        }
     }
 }

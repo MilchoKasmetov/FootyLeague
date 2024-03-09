@@ -12,5 +12,11 @@
         Task<IEnumerable<T>> GetAllMatchesAsync<T>();
 
         Task CreateMatchAsync(CreateMatchInputModel model);
+
+        Task<T> GetMatchAsync<T>(int id);
+
+        Task Delete(int id);
+
+        Task Restore(int id);
     }
 }

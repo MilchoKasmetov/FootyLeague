@@ -27,7 +27,7 @@
         {
             var teams = await this._teamService.GetAllTeamsAsync<TeamViewModel>();
 
-            return teams.Any() ? this.Ok(teams) : NotFound();
+            return teams.Any() ? this.Ok(teams) : this.NotFound();
         }
 
         [HttpPost("create")]
@@ -43,18 +43,54 @@
 
             await this._teamService.CreateTeamAsync(model);
 
-            return Ok();
+            return this.Ok();
         }
 
-        [HttpPost("update_results")]
+        [HttpPost("update_all_teams_stats")]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> UpdateResults()
+        public async Task<IActionResult> UpdateAllTeamsStats()
         {
             await this._teamService.UpdateAllTeamsStats();
 
-            return Ok();
+            return this.Ok();
+        }
+
+        [HttpGet("{id}")]
+        [Produces("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> Get(int id)
+        {
+            var team = await this._teamService.GetTeamAsync<TeamViewModel>(id);
+
+            return team != null ? this.Ok(team) : this.NotFound();
+        }
+
+        [HttpDelete("{id}")]
+        [Produces("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> Delete(int id)
+        {
+           await this._teamService.Delete(id);
+
+           return this.Ok();
+        }
+
+        [HttpPost("{id}")]
+        [Produces("application/json")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> Restore(int id)
+        {
+            await this._teamService.Restore(id);
+
+            return this.Ok();
         }
     }
 }
