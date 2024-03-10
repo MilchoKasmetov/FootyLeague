@@ -8,8 +8,9 @@
     using System.Threading.Tasks;
 
     using FootyLeague.Data.Common.Models;
+    using FootyLeague.Services.Mapping;
 
-    public class Match : BaseDeletableModel<int>
+    public class Match : BaseDeletableModel<int>, IMapTo<Match>
     {
         [Required]
         public int HomeTeamScore { get; set; }

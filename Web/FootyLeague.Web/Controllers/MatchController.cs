@@ -15,7 +15,7 @@ namespace FootyLeague.Web.Controllers
         private readonly IMatchService _matchService;
         private readonly ITeamService _teamService;
 
-        public MatchController(IMatchService matchService,ITeamService teamService)
+        public MatchController(IMatchService matchService, ITeamService teamService)
         {
             this._matchService = matchService;
             this._teamService = teamService;

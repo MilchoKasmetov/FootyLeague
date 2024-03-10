@@ -77,9 +77,9 @@
         [ProducesResponseType(404)]
         public async Task<IActionResult> Delete(int id)
         {
-           await this._teamService.Delete(id);
+            await this._teamService.Delete(id);
 
-           return this.Ok();
+            return this.Ok();
         }
 
         [HttpPost("restore/{id}")]

@@ -1,6 +1,7 @@
 ﻿namespace FootyLeague.Services.Data.Tests
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
@@ -16,7 +17,6 @@
     public class TeamServiceTests : BaseServiceTests
     {
         private const int TestId = 1;
-        private const int TestIdForSecoundExample = 2;
 
         private const string TestName = "Test";
         private const string TestNameTeam = "Team";
@@ -134,6 +134,30 @@
             var list = await this.TeamServiceMoq.GetAllTeamsAsync<Team>();
 
             Assert.Equal(2, list.Count());
+        }
+
+        [Fact]
+        public async Task GetAllTeamsAsync_ReturnsAllTeamsOrderedByPoints()
+        {
+            var teams = new List<Team>
+            {
+                new Team { Id = 1, Name = "TeamA", Points = 10 },
+                new Team { Id = 2, Name = "TeamB", Points = 5 },
+                new Team { Id = 3, Name = "TeamC", Points = 15 },
+            };
+            foreach (var team in teams)
+            {
+                await this.DbContext.Teams.AddAsync(team);
+            }
+
+            await this.DbContext.SaveChangesAsync();
+
+            var result = await this.TeamServiceMoq.GetAllTeamsAsync<Team>();
+
+            Assert.Equal(3, result.Count());
+            Assert.Equal("TeamB", result.ElementAt(0).Name); // Teams should be ordered by points
+            Assert.Equal("TeamA", result.ElementAt(1).Name);
+            Assert.Equal("TeamC", result.ElementAt(2).Name);
         }
     }
 }
