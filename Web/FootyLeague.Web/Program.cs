@@ -1,7 +1,7 @@
 ﻿namespace FootyLeague.Web
 {
     using System.Reflection;
-
+    using FootyLeague.API.Infrastructure;
     using FootyLeague.Data;
     using FootyLeague.Data.Common;
     using FootyLeague.Data.Common.Repositories;
@@ -59,7 +59,10 @@
 
             app.UseRouting();
 
+            app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+
             app.UseAuthentication();
+            app.UseMiddleware<LogUserNameMiddleware>();
             app.UseAuthorization();
 
             app.UseSwagger();

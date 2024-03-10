@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-
+    using FootyLeague.API.Infrastructure;
     using FootyLeague.Data;
     using FootyLeague.Data.Common;
     using FootyLeague.Data.Common.Repositories;
@@ -45,6 +45,7 @@
             services.AddTransient<ITeamService, TeamService>();
             services.AddTransient<IMatchService, MatchService>();
             services.AddTransient<IAdminService, AdminService>();
+            services.AddTransient<GlobalExceptionHandlingMiddleware>();
 
             return services;
         }
