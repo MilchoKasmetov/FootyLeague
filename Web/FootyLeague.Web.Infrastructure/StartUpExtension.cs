@@ -19,6 +19,7 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Diagnostics;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
@@ -61,7 +62,39 @@
         public static IServiceCollection ConfigureMSSQLDB(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(
-    options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+              options =>
+              {
+                  options.UseSqlServer(
+                  configuration.GetConnectionString("DefaultConnection"),
+                  providerOptions => providerOptions.EnableRetryOnFailure(
+                      maxRetryCount: 3,
+                      maxRetryDelay: TimeSpan.FromSeconds(1),
+                      errorNumbersToAdd: new List<int>
+                      {
+                           4060,   // Cannot open database requested by the login.
+                           18456,  // Login failed for user.
+                           547,    // The INSERT statement conflicted with the FOREIGN KEY constraint.
+                           262,    // CREATE DATABASE permission denied in database.
+                           2601,   // Cannot insert duplicate key row in object.
+                           8152,   // String or binary data would be truncated.
+                           207,    // Invalid column name.
+                           102,    // Incorrect syntax near.
+                           1205,   // Deadlock detected.
+                           3201,   // Cannot open backup device.
+                           18452,  // Login failed. The login is from an untrusted domain.
+                           233,    // A connection was successfully established with the server, but then an error occurred during the login process.}));
+                      }));
+                  options.LogTo(
+                    filter: (eventId, level) => eventId.Id == CoreEventId.ExecutionStrategyRetrying,
+                    logger: (eventData) =>
+                    {
+                        var retryEventData = eventData as ExecutionStrategyEventData;
+                        var exceptions = retryEventData.ExceptionsEncountered;
+                        Log.Warning($"Retry #{exceptions.Count} with delay {retryEventData.Delay} due to error: {exceptions.Last().Message}");
+
+                    });
+
+              });
 
             return services;
         }
