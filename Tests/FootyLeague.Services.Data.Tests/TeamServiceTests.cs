@@ -155,7 +155,7 @@
             var result = await this.TeamServiceMoq.GetAllTeamsAsync<Team>();
 
             Assert.Equal(3, result.Count());
-            Assert.Equal("TeamB", result.ElementAt(0).Name); // Teams should be ordered by points
+            Assert.Equal("TeamB", result.ElementAt(0).Name);
             Assert.Equal("TeamA", result.ElementAt(1).Name);
             Assert.Equal("TeamC", result.ElementAt(2).Name);
         }
