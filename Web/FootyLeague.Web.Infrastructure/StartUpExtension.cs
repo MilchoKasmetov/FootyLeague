@@ -47,6 +47,8 @@
             services.AddTransient<IAdminService, AdminService>();
             services.AddTransient<GlobalExceptionHandlingMiddleware>();
 
+            services.AddScoped<IAuthService, AuthService>();
+
             return services;
         }
 

@@ -23,7 +23,7 @@
         {
             LogContext.PushProperty("UserName", context.User.Identity.Name == null ? "[No User]" : context.User.Identity.Name);
 
-            return next(context);
+            return this.next(context);
         }
     }
 }

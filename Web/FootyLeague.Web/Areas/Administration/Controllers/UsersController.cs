@@ -1,6 +1,6 @@
 ﻿// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace FootyLeague.Web.Areas.Administration
+namespace FootyLeague.Web.Areas.Administration.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -30,8 +30,8 @@ namespace FootyLeague.Web.Areas.Administration
                                             UserManager<ApplicationUser> userManager,
                                             IAdminService adminService)
         {
-            this._userManager = userManager;
-            this._adminService = adminService;
+            _userManager = userManager;
+            _adminService = adminService;
         }
 
         // GET: api/users
@@ -41,14 +41,14 @@ namespace FootyLeague.Web.Areas.Administration
         [ProducesResponseType(404)]
         public async Task<IActionResult> Get()
         {
-            var users = await this._adminService.GetAllUsersAsync();
+            var users = await _adminService.GetAllUsersAsync();
 
             if (!users.Any())
             {
-                return this.NotFound();
+                return NotFound();
             }
 
-            return this.Ok(users);
+            return Ok(users);
         }
 
         // GET api/users/bc719f0c-ad53-4d35-8bc4-b511dd94dc07
@@ -59,14 +59,14 @@ namespace FootyLeague.Web.Areas.Administration
         [ProducesResponseType(404)]
         public async Task<IActionResult> Get(string id)
         {
-            var user = await this._adminService.GetUserAsync(id);
+            var user = await _adminService.GetUserAsync(id);
 
             if (user == null)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
-            return this.Ok(user);
+            return Ok(user);
         }
 
         // Patch api/users/bc719f0c-ad53-4d35-8bc4-b511dd94dc07
@@ -76,40 +76,40 @@ namespace FootyLeague.Web.Areas.Administration
         [ProducesResponseType(404)]
         public async Task<IActionResult> Patch(string id, [FromBody] List<string> roles)
         {
-            var filteredRoleList = await this._adminService.FilterRolesThatExistsAsync(roles);
+            var filteredRoleList = await _adminService.FilterRolesThatExistsAsync(roles);
 
             if (!filteredRoleList.Any())
             {
-                return this.BadRequest();
+                return BadRequest();
             }
 
-            var user = await this._userManager.Users.Include(x => x.Roles).FirstOrDefaultAsync(x => x.Id == id);
+            var user = await _userManager.Users.Include(x => x.Roles).FirstOrDefaultAsync(x => x.Id == id);
 
             if (user == null)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
-            var existingRoles = await this._userManager.GetRolesAsync(user);
+            var existingRoles = await _userManager.GetRolesAsync(user);
 
-            var checkUnique = await this._adminService.FilterRolesThatAreNotAlreadySetAsync(filteredRoleList, user);
+            var checkUnique = await _adminService.FilterRolesThatAreNotAlreadySetAsync(filteredRoleList, user);
 
             if (!checkUnique.Any())
             {
-                return this.BadRequest();
+                return BadRequest();
             }
 
             // Add new roles
-            var result = await this._userManager.AddToRolesAsync(user, checkUnique);
+            var result = await _userManager.AddToRolesAsync(user, checkUnique);
 
             if (!result.Succeeded)
             {
-                return this.BadRequest(result.Errors);
+                return BadRequest(result.Errors);
             }
 
-            var userViewModel = await this._adminService.GetUserAsync(id);
+            var userViewModel = await _adminService.GetUserAsync(id);
 
-            return this.Ok(userViewModel);
+            return Ok(userViewModel);
         }
 
         // DELETE api/users/bc719f0c-ad53-4d35-8bc4-b511dd94dc07
@@ -119,39 +119,39 @@ namespace FootyLeague.Web.Areas.Administration
         [ProducesResponseType(404)]
         public async Task<IActionResult> Delete(string id, [FromBody] List<string> roles)
         {
-            var filteredRoleList = await this._adminService.FilterRolesThatExistsAsync(roles);
+            var filteredRoleList = await _adminService.FilterRolesThatExistsAsync(roles);
 
             if (!filteredRoleList.Any())
             {
-                return this.BadRequest();
+                return BadRequest();
             }
 
-            var user = await this._userManager.Users.Include(x => x.Roles).FirstOrDefaultAsync(x => x.Id == id);
+            var user = await _userManager.Users.Include(x => x.Roles).FirstOrDefaultAsync(x => x.Id == id);
 
             if (user == null)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
-            var existingRoles = await this._userManager.GetRolesAsync(user);
+            var existingRoles = await _userManager.GetRolesAsync(user);
 
             var rolesToRemove = filteredRoleList.Intersect(existingRoles);
 
             if (!rolesToRemove.Any())
             {
-                return this.NotFound();
+                return NotFound();
             }
 
-            var result = await this._userManager.RemoveFromRolesAsync(user, rolesToRemove);
+            var result = await _userManager.RemoveFromRolesAsync(user, rolesToRemove);
 
             if (!result.Succeeded)
             {
-                return this.BadRequest(result.Errors);
+                return BadRequest(result.Errors);
             }
 
-            var userViewModel = await this._adminService.GetUserAsync(id);
+            var userViewModel = await _adminService.GetUserAsync(id);
 
-            return this.Ok(userViewModel);
+            return Ok(userViewModel);
 
         }
     }
