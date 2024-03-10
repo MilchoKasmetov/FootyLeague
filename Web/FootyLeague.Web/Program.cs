@@ -51,6 +51,7 @@
             }
 
             AutoMapperConfig.RegisterMappings(typeof(TeamViewModel).GetTypeInfo().Assembly);
+            AutoMapperConfig.RegisterMappings(typeof(Team).GetTypeInfo().Assembly);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

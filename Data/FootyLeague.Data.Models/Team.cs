@@ -9,8 +9,9 @@
     using System.Threading.Tasks;
 
     using FootyLeague.Data.Common.Models;
+    using FootyLeague.Services.Mapping;
 
-    public class Team : BaseDeletableModel<int>
+    public class Team : BaseDeletableModel<int>, IMapTo<Team>
     {
         public Team()
         {

@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Services\FootyLeague.Services.Mapping\FootyLeague.Services.Mapping.csproj" />
     <ProjectReference Include="..\FootyLeague.Data.Common\FootyLeague.Data.Common.csproj" />
   </ItemGroup>
   
