@@ -18,7 +18,7 @@
         private readonly IDeletableEntityRepository<Team> teamRepository;
         private readonly IDeletableEntityRepository<Match> matchRepository;
 
-        public TeamService(IDeletableEntityRepository<Team> teamRepository,IDeletableEntityRepository<Match> matchRepository)
+        public TeamService(IDeletableEntityRepository<Team> teamRepository, IDeletableEntityRepository<Match> matchRepository)
         {
             this.teamRepository = teamRepository;
             this.matchRepository = matchRepository;

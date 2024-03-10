@@ -44,6 +44,7 @@
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ITeamService, TeamService>();
             services.AddTransient<IMatchService, MatchService>();
+            services.AddTransient<IAdminService, AdminService>();
 
             return services;
         }

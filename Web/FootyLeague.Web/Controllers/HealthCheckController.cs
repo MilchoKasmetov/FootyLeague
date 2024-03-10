@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Logging;
-using System.Net;
-using System.Threading.Tasks;
-
-namespace FootyLeague.Web.Controllers
+﻿namespace FootyLeague.Web.Controllers
 {
+    using System.Net;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Diagnostics.HealthChecks;
+    using Microsoft.Extensions.Logging;
+
     [Route("api/[controller]")]
     [ApiController]
     public class HealthCheckController : ControllerBase

@@ -29,6 +29,8 @@
                               new SettingsSeeder(),
                               new TeamSeeder(),
                               new MatchSeeder(),
+                              new AdminSeeder(),
+                              new UserSeeder(),
                           };
 
             foreach (var seeder in seeders)

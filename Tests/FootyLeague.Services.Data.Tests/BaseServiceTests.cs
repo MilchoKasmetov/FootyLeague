@@ -1,22 +1,23 @@
-﻿using FootyLeague.Data;
-using FootyLeague.Data.Common.Repositories;
-using FootyLeague.Data.Models;
-using FootyLeague.Data.Repositories;
-using FootyLeague.Services.Data.Contracts;
-using FootyLeague.Services.Mapping;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FootyLeague.Services.Data.Tests
+﻿namespace FootyLeague.Services.Data.Tests
 {
- public abstract class BaseServiceTests : IDisposable
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using FootyLeague.Data;
+    using FootyLeague.Data.Common.Repositories;
+    using FootyLeague.Data.Models;
+    using FootyLeague.Data.Repositories;
+    using FootyLeague.Services.Data.Contracts;
+    using FootyLeague.Services.Mapping;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.DependencyInjection;
+
+    public abstract class BaseServiceTests : IDisposable
     {
         protected BaseServiceTests()
         {

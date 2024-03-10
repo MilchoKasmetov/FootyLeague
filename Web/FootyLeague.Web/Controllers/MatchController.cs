@@ -1,13 +1,14 @@
-﻿using FootyLeague.Services.Data.Contracts;
-using FootyLeague.Web.ViewModels.Match;
-using FootyLeague.Web.ViewModels.Team;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FootyLeague.Web.Controllers
+﻿namespace FootyLeague.Web.Controllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using FootyLeague.Services.Data.Contracts;
+    using FootyLeague.Web.ViewModels.Match;
+    using FootyLeague.Web.ViewModels.Team;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+
     [Route("api/[controller]")]
     [ApiController]
     public class MatchController : ControllerBase
