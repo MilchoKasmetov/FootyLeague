@@ -70,7 +70,7 @@
             return team != null ? this.Ok(team) : this.NotFound();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         [Produces("application/json")]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
@@ -82,7 +82,7 @@
            return this.Ok();
         }
 
-        [HttpPost("{id}")]
+        [HttpPost("restore/{id}")]
         [Produces("application/json")]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
@@ -94,7 +94,7 @@
             return this.Ok();
         }
 
-        [HttpPatch("{id}")]
+        [HttpPatch("edit/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         [ProducesResponseType(404)]

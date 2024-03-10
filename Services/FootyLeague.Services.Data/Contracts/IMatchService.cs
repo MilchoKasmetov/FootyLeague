@@ -1,6 +1,7 @@
 ﻿namespace FootyLeague.Services.Data.Contracts
 {
     using FootyLeague.Web.ViewModels.Match;
+    using FootyLeague.Web.ViewModels.Team;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -18,5 +19,7 @@
         Task Delete(int id);
 
         Task Restore(int id);
+
+        Task UpdateAsync(int id, EditMatchInputModel input);
     }
 }

@@ -49,7 +49,7 @@ namespace FootyLeague.Web.Controllers
             return this.Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         [Produces("application/json")]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
@@ -61,7 +61,7 @@ namespace FootyLeague.Web.Controllers
             return this.Ok();
         }
 
-        [HttpPost("{id}")]
+        [HttpPost("restore/{id}")]
         [Produces("application/json")]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
@@ -73,7 +73,7 @@ namespace FootyLeague.Web.Controllers
             return this.Ok();
         }
 
-        [HttpPatch("{id}")]
+        [HttpPatch("edit/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         [ProducesResponseType(404)]

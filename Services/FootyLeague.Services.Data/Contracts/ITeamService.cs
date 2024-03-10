@@ -20,5 +20,7 @@
         Task Delete(int id);
 
         Task Restore(int id);
+
+        Task UpdateAsync(int id, EditTeamInputModel input);
     }
 }

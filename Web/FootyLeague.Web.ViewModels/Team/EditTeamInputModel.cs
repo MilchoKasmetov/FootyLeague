@@ -8,6 +8,5 @@ namespace FootyLeague.Web.ViewModels.Team
 {
     public class EditTeamInputModel : BaseTeamInputModel
     {
-        public int Id { get; set; }
     }
 }
