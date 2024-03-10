@@ -1,18 +1,19 @@
-﻿using FootyLeague.Data.Common.Repositories;
-using FootyLeague.Data.Models;
-using FootyLeague.Services.Data.Contracts;
-using FootyLeague.Services.Mapping;
-using FootyLeague.Web.ViewModels.Match;
-using FootyLeague.Web.ViewModels.Team;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FootyLeague.Services.Data
+﻿namespace FootyLeague.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using FootyLeague.Data.Common.Repositories;
+    using FootyLeague.Data.Models;
+    using FootyLeague.Services.Data.Contracts;
+    using FootyLeague.Services.Mapping;
+    using FootyLeague.Web.ViewModels.Match;
+    using FootyLeague.Web.ViewModels.Team;
+    using Microsoft.EntityFrameworkCore;
+
     public class MatchService : IMatchService
     {
         private readonly IDeletableEntityRepository<Match> matchRepository;
