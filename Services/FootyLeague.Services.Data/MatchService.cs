@@ -81,5 +81,34 @@ namespace FootyLeague.Services.Data
             this.matchRepository.Undelete(match);
             await this.matchRepository.SaveChangesAsync();
         }
+
+        public async Task UpdateAsync(int id, EditMatchInputModel input)
+        {
+            var match = await this.matchRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == id);
+            if (match == null)
+            {
+                return;
+            }
+
+            var homeTeam = await this.teamRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == input.HomeTeam.Id);
+            if (homeTeam == null)
+            {
+                return;
+            }
+
+            var awayTeam = await this.teamRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == input.AwayTeam.Id);
+            if (awayTeam == null)
+            {
+                return;
+            }
+
+            match.HomeTeamScore = input.HomeTeamScore;
+            match.AwayTeamScore = input.AwayTeamScore;
+            match.HomeTeam = homeTeam;
+            match.AwayTeam = awayTeam;
+            match.IsPlayed = input.IsPlayed;
+
+            await this.matchRepository.SaveChangesAsync();
+        }
     }
 }

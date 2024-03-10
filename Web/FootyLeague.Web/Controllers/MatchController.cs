@@ -72,5 +72,21 @@ namespace FootyLeague.Web.Controllers
 
             return this.Ok();
         }
+
+        [HttpPatch("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> Patch(int id, [FromBody] EditMatchInputModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(this.ModelState);
+            }
+
+            await this._matchService.UpdateAsync(id, model);
+
+            return this.Ok();
+        }
     }
 }

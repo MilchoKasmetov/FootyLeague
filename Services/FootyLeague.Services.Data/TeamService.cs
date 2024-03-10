@@ -116,5 +116,18 @@
             this.teamRepository.Undelete(team);
             await this.teamRepository.SaveChangesAsync();
         }
+
+        public async Task UpdateAsync(int id, EditTeamInputModel input)
+        {
+            var team = await this.teamRepository.AllWithDeleted().FirstOrDefaultAsync(x => x.Id == id);
+            if (team == null)
+            {
+                return;
+            }
+
+            team.Name = input.Name;
+
+            await this.teamRepository.SaveChangesAsync();
+        }
     }
 }

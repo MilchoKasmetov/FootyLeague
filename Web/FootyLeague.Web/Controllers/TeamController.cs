@@ -1,5 +1,6 @@
 ﻿namespace FootyLeague.Web.Controllers
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -89,6 +90,22 @@
         public async Task<IActionResult> Restore(int id)
         {
             await this._teamService.Restore(id);
+
+            return this.Ok();
+        }
+
+        [HttpPatch("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> Patch(int id, [FromBody] EditTeamInputModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(this.ModelState);
+            }
+
+            await this._teamService.UpdateAsync(id, model);
 
             return this.Ok();
         }
