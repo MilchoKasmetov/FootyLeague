@@ -95,8 +95,24 @@
             return builder;
         }
 
+        public static void AddCustomCors(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CustomCorsPolicy", builder =>
+                {
+                    var allowedOrigins = configuration.GetSection("AllowedOrigins").Get<string[]>();
+                    builder.WithOrigins(allowedOrigins)
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
+        }
+
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddCustomCors(configuration);
+
             services.ConfigureMSSQLDB(configuration);
 
             services.ConfigureIdentity();
